@@ -1,0 +1,26 @@
+{
+	"geode": "3.4.0",
+	"gd": {
+		"win": "2.206",
+		"android": "2.206",
+		"mac": "2.206",
+		"ios": "2.206"
+	},
+	"id": "sorkopiko.noratelimit",
+	"name": "NoRateLimit",
+	"version": "v0.1.0",
+	"developer": "SorkoPiko",
+	"description": "Prevents you from getting rate-limited by Robtop's API",
+	"settings": {
+		"maxReqs": {
+			"name": "Max Requests",
+			"type": "int",
+			"default": 90,
+			"min": 10,
+			"max": 99,
+			"control": {
+				"slider": true
+			}
+		}
+	}
+}
