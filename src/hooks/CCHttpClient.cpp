@@ -4,6 +4,10 @@
 using namespace geode::prelude;
 
 class $modify(NRLCCHttpClient, CCHttpClient) {
+    static void onModify(auto& self) {
+        (void) self.setHookPriority("CCHttpClient::send", -99999);
+    }
+
     void send(CCHttpRequest* request) {
         if (const std::string url = request->getUrl(); url.find("boomlings.com") != std::string::npos) {
             if (const auto time = RequestStutter::getRequestTime(); time > 0) {

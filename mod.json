@@ -7,7 +7,7 @@
 		"ios": "2.206"
 	},
 	"id": "sorkopiko.noratelimit",
-	"name": "NoRateLimit",
+	"name": "No Rate Limit",
 	"version": "v0.1.0",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
