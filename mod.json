@@ -8,12 +8,13 @@
 	},
 	"id": "sorkopiko.noratelimit",
 	"name": "No Rate Limit",
-	"version": "v0.1.0",
+	"version": "v1.0.0",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
 	"settings": {
 		"maxReqs": {
-			"name": "Max Requests",
+			"name": "Max Requests per Minute",
+			"description": "The maximum amount of requests you can make to Robtop's API per minute (you get banned at 100)",
 			"type": "int",
 			"default": 90,
 			"min": 10,
@@ -22,5 +23,12 @@
 				"slider": true
 			}
 		}
-	}
+	},
+	"incompatibilities": [
+		{
+			"id": "smjs.gdintercept",
+			"version": "*",
+			"importance": "breaking"
+		}
+	]
 }

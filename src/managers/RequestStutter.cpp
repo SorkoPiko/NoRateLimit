@@ -12,9 +12,8 @@ long long getCurrentTimestampMillis() {
 }
 
 long long RequestStutter::getRequestTime() {
-    //const auto maxReqs = Mod::get()->getSettingValue<int>("maxReqs");
-    const auto maxReqs = 90;
-    constexpr auto delay = 60 * 1000 / maxReqs;
+    const auto maxReqs = Mod::get()->getSettingValue<int64_t>("maxReqs");
+    const auto delay = 60 * 1000 / maxReqs;
     const auto now = getCurrentTimestampMillis();
     const auto nextRequestTime = lastRequestTime + delay;
     lastRequestTime = std::max(nextRequestTime, now);

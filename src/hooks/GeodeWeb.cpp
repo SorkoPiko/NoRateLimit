@@ -1,4 +1,5 @@
 #include <Geode/utils/web.hpp>
+#include <future>
 #include "../managers/RequestStutter.hpp"
 
 using namespace geode::prelude;
@@ -10,24 +11,26 @@ web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view me
             const auto req = new web::WebRequest(*request);
             req->header("nrl", "true");
             const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
+                std::unique_ptr<web::WebResponse> response;
+
                 std::this_thread::sleep_for(std::chrono::milliseconds(time));
 
                 web::WebTask task = req->send(method, url);
-                log::info("req");
-                task.listen([progress, cancelled](const web::WebResponse* taskResponse) -> web::WebTask::Result {
-                    if (cancelled()) {
-                        delete taskResponse;
-                        return web::WebTask::Cancel();
-                    }
-                    return *taskResponse;
+                task.listen([&response](const web::WebResponse* taskResponse) {
+                    response = std::make_unique<web::WebResponse>(*taskResponse);
                 }, [progress, cancelled](web::WebProgress* taskProgress) {
                     if (!cancelled()) progress(*taskProgress);
                 });
 
-                while (!cancelled()) std::this_thread::sleep_for(std::chrono::milliseconds(2));
+                while (!response && !cancelled()) std::this_thread::sleep_for(std::chrono::milliseconds(2));
 
-                task.cancel();
-                return web::WebTask::Cancel();
+                if (cancelled()) {
+                    task.cancel();
+
+                    return web::WebTask::Cancel();
+                }
+                return *response;
+
             }, fmt::format("NRL {} {}", method, url));
             return returnTask;
         }
