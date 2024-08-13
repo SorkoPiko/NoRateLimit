@@ -11,6 +11,13 @@
 	"version": "v1.0.0",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
+	"tags": [
+		"performance",
+		"utility",
+		"online",
+		"enhancement",
+		"bugfix"
+	],
 	"settings": {
 		"maxReqs": {
 			"name": "Max Requests per Minute",

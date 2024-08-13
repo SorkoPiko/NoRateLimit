@@ -10,4 +10,4 @@ Prevent rate limiting by stuttering requests. This only works on Robtop's endpoi
 - This mod is incompatible with GDIntercept, as it hooks the same functions. I am currently working with SMJS (GDIntercept's developer) to resolve this issue.
 
 ## Special Thanks
-- [SMJS](https://github.com/SMJSGaming) - For helping me with hooking Geode Web Requests.
+- **[SMJS](https://github.com/SMJSGaming)** - For helping me with hooking Geode Web Requests.
