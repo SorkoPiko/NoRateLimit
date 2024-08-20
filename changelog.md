@@ -1,5 +1,8 @@
 # No Rate Limit Changelog
 
+## 1.0.2
+* Add links.
+
 ## 1.0.1
 * Fix a small bug where the CCHttpClient request was freed early (Thanks [qimiko](https://github.com/qimiko)!)
 

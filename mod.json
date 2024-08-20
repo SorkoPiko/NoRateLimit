@@ -8,9 +8,13 @@
 	},
 	"id": "sorkopiko.noratelimit",
 	"name": "No Rate Limit",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
+	"links": {
+		"source": "https://github.com/SorkoPiko/CommentKarma",
+		"community": "https://discord.gg/8uPFxhxBX9"
+	},
 	"tags": [
 		"performance",
 		"utility",
