@@ -1,5 +1,8 @@
 # No Rate Limit Changelog
 
+## 1.0.3
+* Remove Android support.
+
 ## 1.0.2
 * Add links.
 
