@@ -1,5 +1,5 @@
 {
-	"geode": "3.4.0",
+	"geode": "3.6.1",
 	"gd": {
 		"win": "2.206",
 		"mac": "2.206",
@@ -7,7 +7,7 @@
 	},
 	"id": "sorkopiko.noratelimit",
 	"name": "No Rate Limit",
-	"version": "v1.0.3",
+	"version": "v1.0.4",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
 	"links": {
@@ -35,11 +35,6 @@
 		}
 	},
 	"incompatibilities": [
-		{
-			"id": "smjs.gdintercept",
-			"version": "*",
-			"importance": "breaking"
-		},
 		{
 			"id": "km7dev.gdps-switcher",
 			"version": "*",
