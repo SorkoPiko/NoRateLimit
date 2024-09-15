@@ -1,5 +1,5 @@
 {
-	"geode": "3.4.0",
+	"geode": "3.5.0",
 	"gd": {
 		"win": "2.206",
 		"mac": "2.206",
@@ -33,17 +33,5 @@
 				"slider": true
 			}
 		}
-	},
-	"incompatibilities": [
-		{
-			"id": "smjs.gdintercept",
-			"version": "*",
-			"importance": "breaking"
-		},
-		{
-			"id": "km7dev.gdps-switcher",
-			"version": "*",
-			"importance": "breaking"
-		}
-	]
+	}
 }

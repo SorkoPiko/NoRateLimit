@@ -4,12 +4,14 @@
 
 using namespace geode::prelude;
 
+static std::vector<size_t> handledReqs;
+
 web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view method, const std::string_view url) {
-    if (url.find("boomlings.com") != std::string::npos) {
-        const auto resend = request->getHeaders().contains("nrl");
-        if (const auto time = RequestStutter::getRequestTime(); time > 0 && !resend) {
+    if (url.find("://www.boomlings.com") != std::string::npos) {
+        if (const auto time = RequestStutter::getRequestTime(); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
+            handledReqs.push_back(request->getID());
+
             const auto req = new web::WebRequest(*request);
-            req->header("nrl", "true");
             const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
                 std::unique_ptr<web::WebResponse> response;
 
