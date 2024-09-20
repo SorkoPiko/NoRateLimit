@@ -34,5 +34,17 @@
 				"slider": true
 			}
 		}
-	}
+	},
+	"incompatibilities": [
+		{
+			"id": "smjs.gdintercept",
+			"version": "*",
+			"importance": "breaking"
+		},
+		{
+			"id": "km7dev.gdps-switcher",
+			"version": "*",
+			"importance": "breaking"
+		}
+	]
 }

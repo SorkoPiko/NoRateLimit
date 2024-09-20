@@ -9,7 +9,7 @@ using namespace geode::prelude;
 static std::vector<size_t> handledReqs;
 
 web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view method, const std::string_view url) {
-    if (url.find("boomlings.com") != std::string::npos) {
+    if (url.find("://www.boomlings.com") != std::string::npos) {
         if (const auto time = RequestStutter::getRequestTime(); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
             handledReqs.push_back(request->getID());
             log::info("delaying request by {}ms", time);
