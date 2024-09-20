@@ -1,5 +1,7 @@
 #include <Geode/utils/web.hpp>
 #include <future>
+#include <Geode/loader/Mod.hpp>
+#include <Geode/utils/addresser.hpp>
 #include "../managers/RequestStutter.hpp"
 
 using namespace geode::prelude;

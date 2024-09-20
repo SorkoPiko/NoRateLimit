@@ -3,13 +3,16 @@
 
 using namespace geode::prelude;
 
+static std::vector<CCHttpRequest*> handledReqs;
+
 class $modify(NRLCCHttpClient, CCHttpClient) {
     static void onModify(auto& self) {
         (void) self.setHookPriority("CCHttpClient::send", -99999);
     }
 
     void send(CCHttpRequest* request) {
-        if (const std::string url = request->getUrl(); url.find("://www.boomlings.com") != std::string::npos) {
+        if (const std::string url = request->getUrl(); url.find("://www.boomlings.com") != std::string::npos && std::find(handledReqs.begin(), handledReqs.end(), request) == handledReqs.end()) {
+            handledReqs.push_back(request);
             if (const auto time = RequestStutter::getRequestTime(); time > 0) {
                 request->retain();
                 std::thread([this, request, time] {

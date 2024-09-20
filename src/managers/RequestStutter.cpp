@@ -1,4 +1,6 @@
+#include <Geode/loader/Mod.hpp>
 #include <chrono>
+
 #include "RequestStutter.hpp"
 
 using namespace geode::prelude;
