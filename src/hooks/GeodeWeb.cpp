@@ -12,6 +12,7 @@ web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view me
     if (url.find("://www.boomlings.com") != std::string::npos) {
         if (const auto time = RequestStutter::getRequestTime(); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
             handledReqs.push_back(request->getID());
+            log::info("delaying request by {}ms", time);
 
             const auto req = new web::WebRequest(*request);
             const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
