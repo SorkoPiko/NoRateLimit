@@ -11,7 +11,8 @@ class $modify(NRLCCHttpClient, CCHttpClient) {
     }
 
     void send(CCHttpRequest* request) {
-        if (const std::string url = request->getUrl(); url.find("://www.boomlings.com") != std::string::npos && std::find(handledReqs.begin(), handledReqs.end(), request) == handledReqs.end()) {
+        log::info("intercept");
+        if (const std::string url = request->getUrl(); url.find("boomlings.com") != std::string::npos && std::find(handledReqs.begin(), handledReqs.end(), request) == handledReqs.end()) {
             handledReqs.push_back(request);
             if (const auto time = RequestStutter::getRequestTime(); time > 0) {
                 log::info("delaying request by {}ms", time);
