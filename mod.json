@@ -8,7 +8,7 @@
 	},
 	"id": "sorkopiko.noratelimit",
 	"name": "No Rate Limit",
-	"version": "v1.0.3",
+	"version": "v1.0.4",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
 	"links": {
@@ -30,6 +30,17 @@
 			"default": 90,
 			"min": 10,
 			"max": 99,
+			"control": {
+				"slider": true
+			}
+		},
+		"maxDownloadLevelReqs": {
+			"name": "Max Level Download Requests per Minute",
+			"description": "The maximum amount of level download requests you can make to Robtop's API per minute (you get banned at 20)",
+			"type": "int",
+			"default": 18,
+			"min": 5,
+			"max": 19,
 			"control": {
 				"slider": true
 			}

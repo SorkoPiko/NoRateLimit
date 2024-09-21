@@ -2,11 +2,12 @@
 #define REQUESTSTUTTER_HPP
 
 class RequestStutter {
-protected:
     static long long lastRequestTime;
+    static long long lastDownloadLevelTime;
+    static long long getDownloadLevelTime();
 
 public:
-    static long long getRequestTime();
+    static long long getRequestTime(bool downloadLevel);
 };
 
 #endif

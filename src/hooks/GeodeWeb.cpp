@@ -10,10 +10,16 @@ static std::vector<size_t> handledReqs;
 
 web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view method, const std::string_view url) {
     if (url.find("://www.boomlings.com") != std::string::npos) {
-        if (const auto time = RequestStutter::getRequestTime(); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
+        auto downloadLevel = false;
+        if (url.find("://www.boomlings.com/database/downloadGJLevel22.php") != std::string::npos) {
+            downloadLevel = true;
+        }
+        if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
             handledReqs.push_back(request->getID());
             log::info("delaying request by {}ms", time);
 
+
+            //Thanks SMJS for the task handler
             const auto req = new web::WebRequest(*request);
             const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
                 std::unique_ptr<web::WebResponse> response;
