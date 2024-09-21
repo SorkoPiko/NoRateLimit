@@ -1,7 +1,8 @@
 # No Rate Limit Changelog
 
 ## 1.0.4
-* Added support for a new rate limit (20 downloadGJLevel per min)
+* Added support for a new rate limit (20 downloadGJLevel per min).
+* Fixed excessive rate limiting.
 
 ## 1.0.3
 * Fix Android bug. Sorry it took so long!
