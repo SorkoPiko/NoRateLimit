@@ -18,7 +18,6 @@ class $modify(NRLCCHttpClient, CCHttpClient) {
             }
             handledReqs.push_back(request);
             if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0) {
-                log::info("delaying request by {}ms", time);
                 request->retain();
                 //CCScheduler::get()->scheduleSelector(
                 //    schedule_selector(NRLCCHttpClient::sendRequest),

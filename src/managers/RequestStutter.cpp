@@ -19,12 +19,13 @@ long long RequestStutter::getRequestTime(bool downloadLevel) {
     const auto delay = 60 * 1000 / maxReqs;
     const auto now = getCurrentTimestampMillis();
     const auto nextRequestTime = lastRequestTime + delay;
-    lastRequestTime = std::max(nextRequestTime, now);
+    lastRequestTime = std::max(lastRequestTime, now);
     if (downloadLevel) {
         return getDownloadLevelTime();
     }
-    log::info("{}", lastRequestTime - now);
-    return lastRequestTime - now;
+    const auto returnTime = lastRequestTime - now;
+    lastRequestTime = std::max(nextRequestTime, now);
+    return returnTime;
 }
 
 long long RequestStutter::getDownloadLevelTime() {
@@ -32,10 +33,11 @@ long long RequestStutter::getDownloadLevelTime() {
     const auto delay = 60 * 1000 / maxReqs;
     const auto now = getCurrentTimestampMillis();
     const auto nextRequestTime = lastDownloadLevelTime + delay;
-    lastDownloadLevelTime = std::max(nextRequestTime, now);
+    lastDownloadLevelTime = std::max(lastDownloadLevelTime, now);
     if (lastDownloadLevelTime < lastRequestTime) {
         lastDownloadLevelTime = lastRequestTime;
     }
-    log::info("{}", lastDownloadLevelTime - now);
-    return lastDownloadLevelTime - now;
+    const auto returnTime = lastDownloadLevelTime - now;
+    lastDownloadLevelTime = std::max(nextRequestTime, now);
+    return returnTime;
 }

@@ -16,8 +16,6 @@ web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view me
         }
         if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
             handledReqs.push_back(request->getID());
-            log::info("delaying request by {}ms", time);
-
 
             //Thanks SMJS for the task handler
             const auto req = new web::WebRequest(*request);
