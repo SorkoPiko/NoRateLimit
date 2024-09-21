@@ -31,11 +31,11 @@ long long RequestStutter::getDownloadLevelTime() {
     const auto maxReqs = Mod::get()->getSettingValue<int64_t>("maxDownloadLevelReqs");
     const auto delay = 60 * 1000 / maxReqs;
     const auto now = getCurrentTimestampMillis();
+    const auto nextRequestTime = lastDownloadLevelTime + delay;
+    lastDownloadLevelTime = std::max(nextRequestTime, now);
     if (lastDownloadLevelTime < lastRequestTime) {
         lastDownloadLevelTime = lastRequestTime;
     }
-    const auto nextRequestTime = lastDownloadLevelTime + delay;
-    lastDownloadLevelTime = std::max(nextRequestTime, now);
     log::info("{}", lastDownloadLevelTime - now);
     return lastDownloadLevelTime - now;
 }
