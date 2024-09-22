@@ -11,7 +11,7 @@
 * Add links.
 
 ## 1.0.1
-* Fix a small bug where the CCHttpClient request was freed early (Thanks [qimiko](https://github.com/qimiko)!)
+* Fixed a small bug where the CCHttpClient request was freed early (Thanks [qimiko](https://github.com/qimiko)!)
 
 ## 1.0.0
 * Initial release - Prevent rate limiting by stuttering requests to ensure no more than 90 requests (default) per minute are made.
