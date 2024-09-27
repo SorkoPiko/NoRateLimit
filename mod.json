@@ -12,7 +12,7 @@
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
 	"links": {
-		"source": "https://github.com/SorkoPiko/CommentKarma",
+		"source": "https://github.com/SorkoPiko/NoRateLimit",
 		"community": "https://discord.gg/8uPFxhxBX9"
 	},
 	"tags": [
