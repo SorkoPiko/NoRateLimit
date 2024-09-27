@@ -17,28 +17,34 @@ web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view me
         if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
             handledReqs.push_back(request->getID());
 
-            //Thanks SMJS for the task handler
             const auto req = new web::WebRequest(*request);
             const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
-                std::unique_ptr<web::WebResponse> response;
-
                 std::this_thread::sleep_for(std::chrono::milliseconds(time));
 
-                web::WebTask task = req->send(method, url);
-                task.listen([&response](const web::WebResponse* taskResponse) {
-                    response = std::make_unique<web::WebResponse>(*taskResponse);
-                }, [progress, cancelled](web::WebProgress* taskProgress) {
-                    if (!cancelled()) progress(*taskProgress);
+                const web::WebResponse* response = nullptr;
+                auto task = req->send(method, url);
+
+                task.listen([&response](const auto taskResponse) {
+                    response = taskResponse;
+                }, [progress, cancelled](auto taskProgress) {
+                    if (!cancelled()) {
+                        progress(*taskProgress);
+                    }
                 });
 
-                while (!response && !cancelled()) std::this_thread::sleep_for(std::chrono::milliseconds(2));
+                while (!response && !cancelled()) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
+                }
 
                 if (cancelled()) {
                     task.cancel();
-
+                    delete req;
                     return web::WebTask::Cancel();
+                } else {
+                    auto result = *response;
+                    delete req;
+                    return result;
                 }
-                return *response;
 
             }, fmt::format("NRL {} {}", method, url));
             return returnTask;
