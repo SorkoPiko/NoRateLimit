@@ -8,17 +8,22 @@ using namespace geode::prelude;
 
 static std::vector<size_t> handledReqs;
 
-web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view method, const std::string_view url) {
+web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view methodView, const std::string_view urlView) {
+    const size_t id = request->getID();
+    const std::string method(methodView);
+    const std::string url(urlView);
+
     if (url.find("://www.boomlings.com") != std::string::npos) {
         auto downloadLevel = false;
         if (url.find("://www.boomlings.com/database/downloadGJLevel22.php") != std::string::npos) {
             downloadLevel = true;
         }
-        if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
-            handledReqs.push_back(request->getID());
+        if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), id) == handledReqs.end()) {
+            handledReqs.push_back(id);
 
             const auto req = new web::WebRequest(*request);
-            const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
+
+            return  web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
                 std::this_thread::sleep_for(std::chrono::milliseconds(time));
 
                 const web::WebResponse* response = nullptr;
@@ -47,7 +52,6 @@ web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view me
                 }
 
             }, fmt::format("NRL {} {}", method, url));
-            return returnTask;
         }
     }
     return request->send(method, url);
