@@ -1,7 +1,10 @@
 # No Rate Limit Changelog
 
-## 1.0.5
+## 1.0.6
 * Version bump
+
+## 1.0.5
+* Removed GDI incompat and fixed some bugs (Thanks [SMJS](https://github.com/SMJSGaming))
 
 ## 1.0.4
 * Added support for a new rate limit (20 downloadGJLevel per min).

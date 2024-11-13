@@ -8,7 +8,7 @@
 	},
 	"id": "sorkopiko.noratelimit",
 	"name": "No Rate Limit",
-	"version": "v1.0.5",
+	"version": "v1.0.6",
 	"developer": "SorkoPiko",
 	"description": "Prevents you from getting rate-limited by Robtop's API",
 	"links": {
