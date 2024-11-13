@@ -8,46 +8,44 @@ using namespace geode::prelude;
 
 static std::vector<size_t> handledReqs;
 
-web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view method, const std::string_view url) {
+// Thanks SMJS for helping me get this to work
+web::WebTask WebRequest_send(web::WebRequest* request, const std::string_view methodView, const std::string_view urlView) {
+    const size_t id = request->getID();
+    const std::string method(methodView);
+    const std::string url(urlView);
+
     if (url.find("://www.boomlings.com") != std::string::npos) {
         auto downloadLevel = false;
         if (url.find("://www.boomlings.com/database/downloadGJLevel22.php") != std::string::npos) {
             downloadLevel = true;
         }
-        if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), request->getID()) == handledReqs.end()) {
-            handledReqs.push_back(request->getID());
+        if (const auto time = RequestStutter::getRequestTime(downloadLevel); time > 0 && std::find(handledReqs.begin(), handledReqs.end(), id) == handledReqs.end()) {
+            handledReqs.push_back(id);
 
             const auto req = new web::WebRequest(*request);
-            const auto returnTask = web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
+
+            return web::WebTask::run([method, url, req, time](auto progress, auto cancelled) -> web::WebTask::Result {
+                std::unique_ptr<web::WebResponse> response;
+
                 std::this_thread::sleep_for(std::chrono::milliseconds(time));
 
-                const web::WebResponse* response = nullptr;
-                auto task = req->send(method, url);
-
-                task.listen([&response](const auto taskResponse) {
-                    response = taskResponse;
-                }, [progress, cancelled](auto taskProgress) {
-                    if (!cancelled()) {
-                        progress(*taskProgress);
-                    }
+                web::WebTask task = req->send(method, url);
+                task.listen([&response](const web::WebResponse* taskResponse) {
+                    response = std::make_unique<web::WebResponse>(*taskResponse);
+                }, [progress, cancelled](web::WebProgress* taskProgress) {
+                    if (!cancelled()) progress(*taskProgress);
                 });
 
-                while (!response && !cancelled()) {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(5));
-                }
+                while (!response && !cancelled()) std::this_thread::sleep_for(std::chrono::milliseconds(2));
 
                 if (cancelled()) {
                     task.cancel();
-                    delete req;
+
                     return web::WebTask::Cancel();
-                } else {
-                    auto result = *response;
-                    delete req;
-                    return result;
                 }
+                return *response;
 
             }, fmt::format("NRL {} {}", method, url));
-            return returnTask;
         }
     }
     return request->send(method, url);

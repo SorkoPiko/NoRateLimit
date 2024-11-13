@@ -45,12 +45,5 @@
 				"slider": true
 			}
 		}
-	},
-	"incompatibilities": [
-		{
-			"id": "smjs.gdintercept",
-			"version": "*",
-			"importance": "breaking"
-		}
-	]
+	}
 }

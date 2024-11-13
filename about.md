@@ -6,7 +6,7 @@ Prevent rate limiting by stuttering requests. This only works on Robtop's endpoi
 - Prevents rate limiting by stuttering requests to ensure no more than 90 requests (default) per minute are made.
 - Configurable request limit (anywhere from 10 - 99 requests per minute, defaults to 90)
 
-## Incompatibilities
-- This mod is incompatible with GDIntercept, as it hooks the same functions. This will be fixed in a future Geode update.
+## Special Thanks
+- **[SMJS](https://github.com/SMJSGaming)** - For helping me with hooking Geode Web Requests.
 
 **one-day mod** challenge (4/7)
