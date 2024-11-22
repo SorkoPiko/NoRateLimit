@@ -1,5 +1,8 @@
 # No Rate Limit Changelog
 
+## 1.0.7
+* Geode 4.0.1 compatibility
+
 ## 1.0.6
 * Version bump
 
