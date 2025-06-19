@@ -1,5 +1,8 @@
 # No Rate Limit Changelog
 
+## 1.1.0
+* Fixed the issue where the mod didnt work lol
+
 ## 1.0.7
 * Geode 4.0.1 compatibility
 
