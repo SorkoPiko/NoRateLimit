@@ -25,7 +25,7 @@ long long RequestStutter::getRequestTime(bool downloadLevel) {
         return getDownloadLevelTime();
     }
     
-    return std::max(0, lastRequestTime - now);
+    return std::max(0LL, lastRequestTime - now);
 }
 
 long long RequestStutter::getDownloadLevelTime() {
